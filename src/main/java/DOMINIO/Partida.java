@@ -27,7 +27,7 @@ public class Partida {
     /**
      * 
      */
-    public List<Jugador> jugadores;
+    private List<Jugador> jugadores;
 
     /**
      * 
@@ -62,6 +62,16 @@ public class Partida {
      */
     public void validarFichasExistentesPozo() {
         // TODO implement here
+       Jugador  jugador = this.jugadores.get(0);
+       
+       if(jugador.isEsPrimerTurno() == false){
+           this.pila.validarFichasExistentesPozo(jugador);
+       }else{
+           this.terminarTurno();
+       }
+       
+        
+       
     }
 
     /**
@@ -69,6 +79,7 @@ public class Partida {
      */
     public void terminarTurno() {
         // TODO implement here
+        
     }
 
 }

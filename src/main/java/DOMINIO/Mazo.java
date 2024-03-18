@@ -29,8 +29,9 @@ public class Mazo {
     /**
      * 
      */
-    public void agregarFichaAMazo() {
+    public void agregarFichaAMazo(Ficha ficha) {
         // TODO implement here
+        this.fichas.add(ficha);
     }
 
 }

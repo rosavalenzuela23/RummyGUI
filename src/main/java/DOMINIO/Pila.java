@@ -22,19 +22,6 @@ public class Pila {
      */
     private List<Ficha> fichas;
 
-    /**
-     * 
-     */
-    public void fichasRestantes() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void hayFichasRestantes() {
-        // TODO implement here
-    }
 
     /**
      * 
@@ -53,22 +40,34 @@ public class Pila {
     /**
      * 
      */
-    public void validarFichasExistentesPozo() {
+    public void validarFichasExistentesPozo(Jugador jugador) {
         // TODO implement here
+         try {
+            
+            if (fichas == null || fichas.isEmpty()) {
+                
+                throw new RuntimeException("La lista de fichas está vacía o nula.");
+            } else {
+                
+                System.out.println("La lista de fichas existe y no está vacía.");
+                this.obtenerFicha(jugador);
+            }
+        } catch (Exception e) {
+           
+            System.out.println("Error: " + e.getMessage());
+        }
     }
+
+    
 
     /**
      * 
+     * @return 
      */
-    public void validarExistenFichas() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void obtenerFicha() {
-        // TODO implement here
+    public void obtenerFicha(Jugador jugador) {
+        
+        jugador.agregarFichaAMazo(this.fichas.getLast());
+        this.fichas.removeLast();
     }
 
 }

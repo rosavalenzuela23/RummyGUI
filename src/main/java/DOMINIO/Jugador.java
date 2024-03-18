@@ -38,8 +38,9 @@ public class Jugador {
     /**
      * 
      */
-    public void agregarFichaAMazo() {
+    public void agregarFichaAMazo(Ficha ficha) {
         // TODO implement here
+        this.mazo.agregarFichaAMazo(ficha);
     }
 
     /**
@@ -47,6 +48,7 @@ public class Jugador {
      */
     public void esPrimerTurno() {
         // TODO implement here
+        this.cambiarEstadoJugador();
     }
 
     /**
@@ -54,6 +56,12 @@ public class Jugador {
      */
     public void cambiarEstadoJugador() {
         // TODO implement here
+        this.esPrimerTurno = true;
+        
     }
 
+    public boolean isEsPrimerTurno() {
+        return esPrimerTurno;
+    }
+    
 }

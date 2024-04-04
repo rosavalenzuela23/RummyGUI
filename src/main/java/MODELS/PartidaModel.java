@@ -1,6 +1,5 @@
 
 package MODELS;
-import DOMINIO.*;
 /**
  *
  * @author 

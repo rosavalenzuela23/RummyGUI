@@ -4,10 +4,14 @@
  */
 package UTIL;
 
+import MODELS.ModeloDatos;
+
 /**
  *
  * @author rosafresita
  */
-public class Observer {
+public interface SuscriptorPartida {
     
+    public void notificar(ModeloDatos modelo);
+
 }

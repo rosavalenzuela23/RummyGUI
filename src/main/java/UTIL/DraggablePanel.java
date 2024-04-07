@@ -4,6 +4,7 @@
  */
 package UTIL;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -24,7 +25,6 @@ public class DraggablePanel extends JPanel{
     public DraggablePanel() {
         super();
         
-        this.setBounds(0, 0, 200, 200);
         this.location = new Point(0, 0);
         
         this.addMouseMotionListener(new DragListener());
@@ -33,11 +33,14 @@ public class DraggablePanel extends JPanel{
     }
     
     @Override
-    public void paint(Graphics g) {
-       
-        this.setLocation(location);
-                        
+    public void paintComponent(Graphics g) {
+        
         super.paintComponent(g);
+        
+        for (Component c : this.getComponents()) {
+            c.repaint();
+        }
+        
     }
     
     private class ClickListener extends MouseAdapter {
@@ -49,13 +52,15 @@ public class DraggablePanel extends JPanel{
         
     }
     
-    public void onMouseDragged(MouseEvent evt) {
+    protected void onMouseDragged(MouseEvent evt) {
         Point currentPoint = evt.getPoint();
         
         this.location.translate(
                 (int) (currentPoint.getX() - previusPoint.getX() ), 
                 (int) (currentPoint.getY() - previusPoint.getY() )
         );
+        
+        this.setLocation(location);
         
         this.repaint();
     }

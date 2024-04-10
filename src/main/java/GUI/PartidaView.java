@@ -16,6 +16,7 @@ import UTIL.SuscriptorPartida;
 
 import java.awt.Component;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -227,6 +228,42 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
 
     }
 
+    /**
+     * Método que muestra una alerta para que el jugador elija si quiere modificar el conjunto
+     * adelante o atras
+     */
+    private ConjuntoMVC.PosicionEnum muestraMensajeDelanteOAtras(){
+        // Crear un array de strings con las opciones
+        String[] opciones = {"Adelante", "Atrás"};
+
+        // Mostrar la ventana de diálogo con el JComboBox para las opciones
+        int seleccion = JOptionPane.showOptionDialog(
+                this,
+                "Selecciona una opción:",
+                "Alerta con Opciones",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                opciones,
+                opciones[0]);
+
+        // Verificar la selección del usuario
+        if (seleccion == 0) {
+            
+            return ConjuntoMVC.PosicionEnum.ADELANTE;
+            
+        } else if (seleccion == 1) {
+            
+            return ConjuntoMVC.PosicionEnum.DETRAS;
+            
+        } else {
+            
+            return null;
+        }
+        
+      
+    }
+    
     private void precionaBotonAgregarFicha(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonAgregarFicha
 
         //Verificar fichas seleccionadas
@@ -234,8 +271,13 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
             List<FichaMVC> fichasSeleccionadas = obtenerFichasMazoSeleccionadas();
 
             ConjuntoMVC conjuntoSeleccionado = obtenerConjuntoSeleccionado();
-
-            PantallaPartidaController.
+            
+            ConjuntoMVC.PosicionEnum posicion = muestraMensajeDelanteOAtras();
+            
+            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
+            pc.realizarMovimientoAgregar(fichasSeleccionadas, conjuntoSeleccionado, posicion);
+                 
+//            PantallaPartidaController.
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -260,7 +302,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
     @Override
     public void notificar(ModeloDatos modelo) {
 
-        List<>
+//        List<>
         
     }
 }

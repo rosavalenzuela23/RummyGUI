@@ -4,14 +4,29 @@
  */
 package UTIL;
 
+import DOMINIO.Conjunto;
+import java.util.List;
+
 /**
  *
  * @author natsu
  */
-public class MovimientoMVC {
+public class MovimientoMVC implements Command{
     
+    Conjunto conjuntoBackUp;
+    List<Conjunto> conjuntos;
     public void verificaColoresConjunto() {
         
+    }
+
+    @Override
+    public void execute() {
+       
+    }
+
+    @Override
+    public void deshacerMovimiento() {
+       
     }
     
 }

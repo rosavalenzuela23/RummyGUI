@@ -21,4 +21,11 @@ public class TurnoMVC {
         }
         
     }
+    
+    /**
+     * Método que valida si se realizaron movimientos
+     */
+    public void verificarMovimientosRealizados(){
+           
+    }
 }

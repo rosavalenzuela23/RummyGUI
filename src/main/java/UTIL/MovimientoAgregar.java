@@ -8,9 +8,9 @@ package UTIL;
  *
  * @author marco
  */
-public class MovimientoDividir extends MovimientoMVC{
+public class MovimientoAgregar extends MovimientoMVC{
     
-    public MovimientoDividir(){
+    public MovimientoAgregar(){
         super();
     }
 
@@ -23,4 +23,6 @@ public class MovimientoDividir extends MovimientoMVC{
     public void deshacerMovimiento() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
 }

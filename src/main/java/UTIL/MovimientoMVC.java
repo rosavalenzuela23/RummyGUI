@@ -11,22 +11,43 @@ import java.util.List;
  *
  * @author natsu
  */
-public class MovimientoMVC implements Command{
+public abstract class MovimientoMVC implements Command{
     
     Conjunto conjuntoBackUp;
     List<Conjunto> conjuntos;
+    
     public void verificaColoresConjunto() {
         
     }
 
     @Override
-    public void execute() {
-       
-    }
+    public abstract void execute();
 
+    /**
+     *
+     */
     @Override
-    public void deshacerMovimiento() {
-       
+    public abstract void deshacerMovimiento();
+    
+    /**
+     * Método que valida si se realizaron movimientos
+     * @return true, en caso de si haberse realizado movimientos, false caso contrario
+     */
+    public boolean verificarMovimientosRealizados(){
+        if(conjuntos.isEmpty()){
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Método que si los conjuntos dentro del movimiento son validos
+     */
+    public void validarMovimiento(){
+        for (Conjunto conjunto : conjuntos) {
+            conjunto.validarConjunto();
+        }
     }
     
 }

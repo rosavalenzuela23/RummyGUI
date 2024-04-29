@@ -43,11 +43,16 @@ public class PartidaModel implements ModeloDatos{
     public void realizarMovimientoAgregar(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, 
         PosicionEnum posicion) {
         
-            if (conjuntoModificado == null) {
+        if (conjuntoModificado == null) {
 
+        }
+    }
 
-
-            }
+    public void agregarSinConjunto(List<FichaMVC> fichasSeleccionadas) {
+        
+    }
+    
+    public void realizarMovimientoDividir(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoSeleccionado) {
         
     }
 

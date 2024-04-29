@@ -47,4 +47,16 @@ public class PantallaPartidaController {
     public void validarFichasExistentesPozo(){
         pm.validarFichasExistentesPozo();
     }
+    
+    public void realizarMovimientoDividir() {
+        
+    }
+    
+    public void agregarSinConjunto(List<FichaMVC> fichasSeleccionadas) {
+        pm.agregarSinConjunto(fichasSeleccionadas);
+    }
+    
+    public void realizarMovimientoDividir(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoSeleccionado) {
+        pm.realizarMovimientoDividir(fichasSeleccionadas, conjuntoSeleccionado);
+    }
 }

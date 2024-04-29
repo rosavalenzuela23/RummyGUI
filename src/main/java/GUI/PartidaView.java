@@ -82,7 +82,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
         tableroPanel = new javax.swing.JPanel();
         opcionesPanel = new javax.swing.JPanel();
         botonAgregar = new javax.swing.JButton();
-        botonDividir = new javax.swing.JButton();
+        botonSeparar = new javax.swing.JButton();
         botonPozo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelFichas = new javax.swing.JPanel();
@@ -114,7 +114,12 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
             }
         });
 
-        botonDividir.setText("Dividir");
+        botonSeparar.setText("Separar");
+        botonSeparar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precionaBotonSepararConjunto(evt);
+            }
+        });
 
         botonPozo.setText("Pozo");
 
@@ -139,7 +144,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
                 .addGap(18, 18, 18)
                 .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonAgregar)
-                    .addComponent(botonDividir)
+                    .addComponent(botonSeparar)
                     .addComponent(botonPozo))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -161,10 +166,12 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
                 .addGap(15, 15, 15)
                 .addComponent(botonAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonDividir)
+                .addComponent(botonSeparar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonPozo))
         );
+
+        botonSeparar.getAccessibleContext().setAccessibleName("Separar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,7 +191,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private List<FichaMVC> obtenerFichasMazoSeleccionadas() throws Exception {
+    private List<FichaMVC> verificarFichasSeleccionadas() throws Exception {
         List<FichaMVC> fichas = new ArrayList<>();
 
         for (Component c : this.panelFichas.getComponents()) {
@@ -207,8 +214,12 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
 
         return fichas;
     }
+    
+    private boolean verificarPeriodoSeleccionado() {
+        return true;
+    }
 
-    private ConjuntoMVC obtenerConjuntoSeleccionado() {
+    private ConjuntoMVC verificarConjuntoSeleccionado() {
 
         for (Component c : this.getComponents()) {
 
@@ -260,21 +271,21 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
             
             return null;
         }
-        
-      
     }
     
     private void precionaBotonAgregarFicha(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonAgregarFicha
 
         //Verificar fichas seleccionadas
         try {
-            List<FichaMVC> fichasSeleccionadas = obtenerFichasMazoSeleccionadas();
-
-            ConjuntoMVC conjuntoSeleccionado = obtenerConjuntoSeleccionado();
+            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
+            List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
+            ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
+            
+            if (conjuntoSeleccionado == null) {
+                pc.agregarSinConjunto(fichasSeleccionadas);
+            }
             
             ConjuntoMVC.PosicionEnum posicion = muestraMensajeDelanteOAtras();
-            
-            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
             pc.realizarMovimientoAgregar(fichasSeleccionadas, conjuntoSeleccionado, posicion);
                  
 //            PantallaPartidaController.
@@ -285,10 +296,24 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
 
     }//GEN-LAST:event_precionaBotonAgregarFicha
 
+    private void precionaBotonSepararConjunto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonSepararConjunto
+        try {
+            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
+            List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
+            ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
+            if (conjuntoSeleccionado == null || verificarPeriodoSeleccionado()) {
+                return;
+            }
+            pc.realizarMovimientoDividir(fichasSeleccionadas, conjuntoSeleccionado);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_precionaBotonSepararConjunto
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
-    private javax.swing.JButton botonDividir;
     private javax.swing.JButton botonPozo;
+    private javax.swing.JButton botonSeparar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

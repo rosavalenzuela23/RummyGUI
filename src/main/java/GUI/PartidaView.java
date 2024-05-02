@@ -281,12 +281,12 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
             List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
             ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
             
-            if (conjuntoSeleccionado == null) {
-                pc.agregarSinConjunto(fichasSeleccionadas);
+            if (conjuntoSeleccionado != null) {
+                ConjuntoMVC.PosicionEnum posicion = muestraMensajeDelanteOAtras();
+                pc.realizarMovimientoAgregar(fichasSeleccionadas, conjuntoSeleccionado, posicion);
             }
             
-            ConjuntoMVC.PosicionEnum posicion = muestraMensajeDelanteOAtras();
-            pc.realizarMovimientoAgregar(fichasSeleccionadas, conjuntoSeleccionado, posicion);
+            pc.agregarSinConjunto(fichasSeleccionadas);
                  
 //            PantallaPartidaController.
 

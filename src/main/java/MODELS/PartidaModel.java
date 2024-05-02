@@ -7,6 +7,7 @@ import java.util.List;
 import UTIL.ConjuntoMVC;
 import UTIL.ConjuntoMVC.PosicionEnum;
 import UTIL.FichaMVC;
+import WEB.ProxyCliente;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +23,6 @@ public class PartidaModel implements ModeloDatos{
     public static PartidaModel obtenerInstancia() {
         if (PartidaModel.instancia == null) {
             PartidaModel.instancia = new PartidaModel();
-            
         }
         return PartidaModel.instancia;
     }
@@ -49,7 +49,8 @@ public class PartidaModel implements ModeloDatos{
     }
 
     public void agregarSinConjunto(List<FichaMVC> fichasSeleccionadas) {
-        
+        ProxyCliente pc = ProxyCliente.obtenerInstancia();
+        pc.agregarSinConjunto(fichasSeleccionadas);
     }
     
     public void realizarMovimientoDividir(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoSeleccionado) {

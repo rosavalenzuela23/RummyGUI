@@ -4,14 +4,59 @@
  */
 package WEB;
 
-import java.io.Serializable;
+import DOMINIO.Comodin;
+import DOMINIO.FichaNumerica;
+import DOMINIO.GrupoFicha;
+import SEGREGATES.FichaSegregada;
+import SEGREGATES.ISegregado;
+import UTIL.FichaMVC;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author oscar
  */
 public class ProxyCliente {
-    public void serializarDatos(Serializable datos) {
+    private static ProxyCliente instanse;
+    private Cliente cliente;
+    
+    private ProxyCliente() {
+        this.cliente = Cliente.obtenerInstancia();
+    }
+    
+    public static ProxyCliente obtenerInstancia(String hostname, int port) {
+        if (ProxyCliente.instanse == null) {
+            ProxyCliente.instanse = new ProxyCliente();
+        }
+        return ProxyCliente.instanse;
+    }
+    
+    private void serializarDatos(ISegregado datos) {
+        
+    }
+    
+    private void serializarDatos(List<? extends ISegregado> datos) {
+        this.cliente.enviarDatos(datos);
+    }
+    
+    public void agregarSinConjunto(List<FichaMVC> fichasSeleccionadas) {
+        List<FichaSegregada> fichas = new ArrayList<>();
+        for (FichaMVC fichaMVC : fichasSeleccionadas) {
+            FichaSegregada fichaSegregada = new FichaSegregada();
+            if (fichaMVC.getFicha() instanceof Comodin) {
+                fichaSegregada.setValor("*");
+            }
+            if (fichaMVC.getFicha() instanceof FichaNumerica fichaNumerica) {
+                fichaSegregada.setValor(fichaNumerica.toString());
+                fichaSegregada.setGrupoFicha(fichaNumerica.getGrupoFicha());
+            }
+            fichas.add(fichaSegregada);
+        }
+        this.serializarDatos(fichas);
+    }
+    
+    public void notificar() {
         
     }
 }

@@ -5,12 +5,11 @@
 package SEGREGATES;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *
- * @author oscar
+ * @author oscar-minjarez
  */
-public class PartidaSegregada implements Serializable, ISegregado {
-    List<ConjuntoSegregado> conjuntos;
+public class ConjuntoSegregado implements Serializable, ISegregado {
+    
 }

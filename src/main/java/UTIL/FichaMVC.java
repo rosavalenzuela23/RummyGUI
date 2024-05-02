@@ -1,5 +1,6 @@
 package UTIL;
 
+import DOMINIO.Ficha;
 import javax.swing.JToggleButton;
 
 /*
@@ -13,20 +14,19 @@ import javax.swing.JToggleButton;
  */
 public class FichaMVC extends JToggleButton {
     
-    private int number;
+    private Ficha ficha;
     
     public FichaMVC() {
         super();
     }
     
-    public FichaMVC(int number) {
+    public FichaMVC(Ficha ficha) {
         this();
-        this.setText(Integer.toString(number));
-        this.number = number;
+        // this.setText(Integer.toString(number));
+        this.ficha = ficha;
     }
     
-    public int getNumber() {
-        return this.number;
+    public Ficha getFicha() {
+        return this.ficha;
     }
-    
 }

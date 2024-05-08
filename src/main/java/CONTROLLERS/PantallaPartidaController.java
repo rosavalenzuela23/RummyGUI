@@ -24,7 +24,6 @@ public class PantallaPartidaController {
         if(PantallaPartidaController.instancia == null) {
             PantallaPartidaController.instancia = new PantallaPartidaController();
         }
-        
         return PantallaPartidaController.instancia;
     }
     
@@ -39,9 +38,8 @@ public class PantallaPartidaController {
         pv.setVisible(true);
     }
     
-    public void realizarMovimientoAgregar(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, 
-        ConjuntoMVC.PosicionEnum posicion) {
-        pm.realizarMovimientoAgregar(fichasSeleccionadas, conjuntoModificado, posicion);
+    public void agregarConConjunto(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, ConjuntoMVC.PosicionEnum posicion) {
+        pm.agregarConConjunto(fichasSeleccionadas, conjuntoModificado, posicion);
     }
 
     public void validarFichasExistentesPozo(){

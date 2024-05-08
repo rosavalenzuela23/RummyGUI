@@ -15,6 +15,14 @@ public class FichaSegregada implements ISegregado, Serializable {
     private String valor;
     private GrupoFicha grupoFicha;
 
+    public FichaSegregada() {
+    }
+
+    public FichaSegregada(String valor, GrupoFicha grupoFicha) {
+        this.valor = valor;
+        this.grupoFicha = grupoFicha;
+    }
+
     public String getValor() {
         return valor;
     }

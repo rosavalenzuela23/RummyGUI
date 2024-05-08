@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author 
  */
-public class PartidaModel implements ModeloDatos{
+public class PartidaModel implements ModeloDatos {
     
     private static PartidaModel instancia;
     
@@ -40,12 +40,9 @@ public class PartidaModel implements ModeloDatos{
 //        this.partida.validarFichasExistentesPozo();
     }
 
-    public void realizarMovimientoAgregar(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, 
-        PosicionEnum posicion) {
-        
-        if (conjuntoModificado == null) {
-
-        }
+    public void agregarConConjunto(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, PosicionEnum posicion) {
+        ProxyCliente pc = ProxyCliente.obtenerInstancia();
+        pc.agregarConConjunto(fichasSeleccionadas, conjuntoModificado, posicion);
     }
 
     public void agregarSinConjunto(List<FichaMVC> fichasSeleccionadas) {

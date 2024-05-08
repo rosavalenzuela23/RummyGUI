@@ -4,6 +4,7 @@
  */
 package UTIL;
 
+import DOMINIO.Conjunto;
 import java.awt.Color;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.swing.JCheckBox;
  */
 public class ConjuntoMVC extends DraggablePanel{
     
+    private Conjunto conjunto;
     private List<FichaMVC> fichas;
 
     private JCheckBox checkBox;
@@ -23,11 +25,9 @@ public class ConjuntoMVC extends DraggablePanel{
         super();
         this.setSize(50, 80);
         this.setBackground(Color.red);
-
         checkBox = new JCheckBox();
         checkBox.setSize(20, 20);
         this.add(checkBox);
-
     }
     
     public boolean isSelected() {
@@ -36,7 +36,6 @@ public class ConjuntoMVC extends DraggablePanel{
 
     //Metodo grafico ignorar
     private void actualizarConjunto() {
-        
         fichas.forEach((ficha) -> {
             this.add(ficha);
             this.setSize(this.getWidth() + 60, this.getHeight());
@@ -51,18 +50,31 @@ public class ConjuntoMVC extends DraggablePanel{
     }
     
     public void agregarFicha(FichaMVC ficha, PosicionEnum pos) {
-        
         if (pos == PosicionEnum.ADELANTE) {
             fichas.addFirst(ficha);
         } else if (pos == PosicionEnum.DETRAS) {
             fichas.addLast(ficha);
         }
-        
     }
     
     public enum PosicionEnum {
         ADELANTE,
         DETRAS
     }
-    
+
+    public Conjunto getConjunto() {
+        return conjunto;
+    }
+
+    public void setConjunto(Conjunto conjunto) {
+        this.conjunto = conjunto;
+    }
+
+    public List<FichaMVC> getFichas() {
+        return fichas;
+    }
+
+    public void setFichas(List<FichaMVC> fichas) {
+        this.fichas = fichas;
+    }
 }

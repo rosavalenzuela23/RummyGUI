@@ -15,8 +15,10 @@ import java.util.List;
  * @author oscar-minjarez
  */
 public class Cliente {
+    
     private static Cliente instance;
     private Socket socket;
+    private ObjectOutputStream outputStream;
     
     private Cliente() {
 
@@ -24,6 +26,11 @@ public class Cliente {
     
     public void setSocket(Socket socket) {
         this.socket = socket;
+        try {
+            this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
+        } catch (IOException e) {
+            System.out.println("Error al obtener el outputStream: " + e.getMessage());
+        }
     }
     
     public static Cliente obtenerInstancia() {
@@ -33,15 +40,29 @@ public class Cliente {
         return Cliente.instance;
     }
     
-    public void enviarDatos() {
-        
+    public void enviarDatos(ISegregado datos) {
+        try {
+            this.outputStream.writeObject(datos);
+            this.outputStream.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     public void enviarDatos(List<? extends ISegregado> datos) {
         try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(this.socket.getOutputStream());
-            outputStream.writeObject(datos);
-            outputStream.flush();
+            this.outputStream.writeObject(datos);
+            this.outputStream.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void enviarDatos(ISegregado datos, List<? extends ISegregado> masDatos) {
+        try {
+            this.outputStream.writeObject(datos);
+            this.outputStream.writeObject(masDatos);
+            this.outputStream.flush();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

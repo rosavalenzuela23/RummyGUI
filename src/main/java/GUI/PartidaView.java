@@ -11,6 +11,8 @@ import java.util.List;
 
 
 import CONTROLLERS.PantallaPartidaController;
+import DOMINIO.Ficha;
+import DOMINIO.FichaNumerica;
 import MODELS.ModeloDatos;
 import UTIL.SuscriptorPartida;
 
@@ -59,15 +61,11 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
 
     private List<FichaMVC> createRandomFicha(int max) {
         List<FichaMVC> fichas = new ArrayList();
-
         for (byte i = 0; i < max; i++) {
-
-            fichas.add(new FichaMVC(i));
-
+            Ficha ficha = new FichaNumerica(i);
+            fichas.add(new FichaMVC(ficha));
         }
-
         return fichas;
-
     }
 
     /**
@@ -193,25 +191,18 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
 
     private List<FichaMVC> verificarFichasSeleccionadas() throws Exception {
         List<FichaMVC> fichas = new ArrayList<>();
-
         for (Component c : this.panelFichas.getComponents()) {
-
             if (c.getClass() == FichaMVC.class) {
                 FichaMVC ficha = (FichaMVC) c;
-
                 if (!ficha.isSelected()) {
                     continue;
                 }
-
                 fichas.add((FichaMVC) c);
             }
-
         }
-
         if (fichas.isEmpty()) {
             throw new Exception("No selecciono fichas");
         }
-
         return fichas;
     }
     
@@ -220,34 +211,24 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
     }
 
     private ConjuntoMVC verificarConjuntoSeleccionado() {
-
         for (Component c : this.getComponents()) {
-
             if ( c.getClass() == ConjuntoMVC.class) {
                 ConjuntoMVC conjunto = (ConjuntoMVC) c;
                 if (!conjunto.isSelected()) {
                     continue;
                 }
-
                 return conjunto; 
-
             }
-
         }
-
         return null;
-
     }
 
     /**
      * Método que muestra una alerta para que el jugador elija si quiere modificar el conjunto
      * adelante o atras
      */
-    private ConjuntoMVC.PosicionEnum muestraMensajeDelanteOAtras(){
-        // Crear un array de strings con las opciones
+    private ConjuntoMVC.PosicionEnum muestraMensajeDelanteOAtras() {
         String[] opciones = {"Adelante", "Atrás"};
-
-        // Mostrar la ventana de diálogo con el JComboBox para las opciones
         int seleccion = JOptionPane.showOptionDialog(
                 this,
                 "Selecciona una opción:",
@@ -257,43 +238,30 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
                 null,
                 opciones,
                 opciones[0]);
-
-        // Verificar la selección del usuario
         if (seleccion == 0) {
-            
             return ConjuntoMVC.PosicionEnum.ADELANTE;
-            
         } else if (seleccion == 1) {
-            
             return ConjuntoMVC.PosicionEnum.DETRAS;
-            
         } else {
-            
             return null;
         }
     }
     
     private void precionaBotonAgregarFicha(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonAgregarFicha
 
-        //Verificar fichas seleccionadas
         try {
             PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
             List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
             ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
-            
             if (conjuntoSeleccionado != null) {
                 ConjuntoMVC.PosicionEnum posicion = muestraMensajeDelanteOAtras();
-                pc.realizarMovimientoAgregar(fichasSeleccionadas, conjuntoSeleccionado, posicion);
+                pc.agregarConConjunto(fichasSeleccionadas, conjuntoSeleccionado, posicion);
+                return;
             }
-            
             pc.agregarSinConjunto(fichasSeleccionadas);
-                 
-//            PantallaPartidaController.
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }//GEN-LAST:event_precionaBotonAgregarFicha
 
     private void precionaBotonSepararConjunto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonSepararConjunto
@@ -301,10 +269,9 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
             PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
             List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
             ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
-            if (conjuntoSeleccionado == null || verificarPeriodoSeleccionado()) {
-                return;
+            if (conjuntoSeleccionado != null && verificarPeriodoSeleccionado()) {
+                pc.realizarMovimientoDividir(fichasSeleccionadas, conjuntoSeleccionado);
             }
-            pc.realizarMovimientoDividir(fichasSeleccionadas, conjuntoSeleccionado);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

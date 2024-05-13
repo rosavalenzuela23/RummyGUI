@@ -9,7 +9,6 @@ import UTIL.FichaMVC;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import CONTROLLERS.PantallaPartidaController;
 import DOMINIO.Ficha;
 import DOMINIO.FichaNumerica;
@@ -24,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author rosafresita
  */
-public class PartidaView extends JFrame implements SuscriptorPartida{
+public class PartidaView extends JFrame implements SuscriptorPartida {
 
     private static PartidaView instancia;
 
@@ -120,6 +119,11 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
         });
 
         botonPozo.setText("Pozo");
+        botonPozo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPozoActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(panelFichas);
 
@@ -169,8 +173,6 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
                 .addComponent(botonPozo))
         );
 
-        botonSeparar.getAccessibleContext().setAccessibleName("Separar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,27 +207,27 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
         }
         return fichas;
     }
-    
+
     private boolean verificarPeriodoSeleccionado() {
         return true;
     }
 
     private ConjuntoMVC verificarConjuntoSeleccionado() {
         for (Component c : this.getComponents()) {
-            if ( c.getClass() == ConjuntoMVC.class) {
+            if (c.getClass() == ConjuntoMVC.class) {
                 ConjuntoMVC conjunto = (ConjuntoMVC) c;
                 if (!conjunto.isSelected()) {
                     continue;
                 }
-                return conjunto; 
+                return conjunto;
             }
         }
         return null;
     }
 
     /**
-     * Método que muestra una alerta para que el jugador elija si quiere modificar el conjunto
-     * adelante o atras
+     * Método que muestra una alerta para que el jugador elija si quiere
+     * modificar el conjunto adelante o atras
      */
     private ConjuntoMVC.PosicionEnum muestraMensajeDelanteOAtras() {
         String[] opciones = {"Adelante", "Atrás"};
@@ -246,7 +248,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
             return null;
         }
     }
-    
+
     private void precionaBotonAgregarFicha(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonAgregarFicha
 
         try {
@@ -277,6 +279,20 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
         }
     }//GEN-LAST:event_precionaBotonSepararConjunto
 
+    private void botonPozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPozoActionPerformed
+        try {
+            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
+            List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
+            ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
+            if(conjuntoSeleccionado != null){
+                pc.validarFichasExistentesPozo();
+            }
+            
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }//GEN-LAST:event_botonPozoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonPozo;
@@ -293,8 +309,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida{
 
     @Override
     public void notificar(ModeloDatos modelo) {
-
+//        this.wait();
 //        List<>
-        
     }
 }

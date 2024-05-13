@@ -9,6 +9,7 @@ import GUI.PartidaView;
 import MODELS.PartidaModel;
 import UTIL.ConjuntoMVC;
 import UTIL.FichaMVC;
+import exceptions.DominioException;
 /**
  *
  * @author marco
@@ -42,7 +43,7 @@ public class PantallaPartidaController {
         pm.agregarConConjunto(fichasSeleccionadas, conjuntoModificado, posicion);
     }
 
-    public void validarFichasExistentesPozo(){
+    public void validarFichasExistentesPozo() throws DominioException{
         pm.validarFichasExistentesPozo();
     }
     

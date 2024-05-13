@@ -2,12 +2,14 @@
 package MODELS;
 
 import DOMINIO.Conjunto;
+import DOMINIO.Partida;
 import java.util.List;
 
 import UTIL.ConjuntoMVC;
 import UTIL.ConjuntoMVC.PosicionEnum;
 import UTIL.FichaMVC;
 import WEB.ProxyCliente;
+import exceptions.DominioException;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 public class PartidaModel implements ModeloDatos {
     
     private static PartidaModel instancia;
-    
+    private static Partida partida;
     private List<Conjunto> conjuntos;
     
     public static PartidaModel obtenerInstancia() {
@@ -36,8 +38,9 @@ public class PartidaModel implements ModeloDatos {
     
     
     
-    public void validarFichasExistentesPozo(){
-//        this.partida.validarFichasExistentesPozo();
+    public void validarFichasExistentesPozo() throws DominioException{
+        ProxyCliente pc = ProxyCliente.obtenerInstancia();
+        partida.validarFichasExistentesPozo();
     }
 
     public void agregarConConjunto(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, PosicionEnum posicion) {

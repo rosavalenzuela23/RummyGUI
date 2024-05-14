@@ -5,6 +5,7 @@
 package WEB;
 
 import SEGREGATES.ISegregado;
+import arqui.util.Datos;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -15,15 +16,15 @@ import java.util.List;
  * @author oscar-minjarez
  */
 public class Cliente {
-    
+
     private static Cliente instance;
     private Socket socket;
     private ObjectOutputStream outputStream;
-    
+
     private Cliente() {
 
     }
-    
+
     public void setSocket(Socket socket) {
         this.socket = socket;
         try {
@@ -32,14 +33,14 @@ public class Cliente {
             System.out.println("Error al obtener el outputStream: " + e.getMessage());
         }
     }
-    
+
     public static Cliente obtenerInstancia() {
         if (Cliente.instance == null) {
             Cliente.instance = new Cliente();
         }
         return Cliente.instance;
     }
-    
+
     public void enviarDatos(ISegregado datos) {
         try {
             this.outputStream.writeObject(datos);
@@ -48,8 +49,8 @@ public class Cliente {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void enviarDatos(List<? extends ISegregado> datos) {
+
+    public void enviarDatos(Datos datos) {
         try {
             this.outputStream.writeObject(datos);
             this.outputStream.flush();
@@ -57,8 +58,8 @@ public class Cliente {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void enviarDatos(ISegregado datos, List<? extends ISegregado> masDatos) {
+
+    public void enviarDatos(Datos datos, List<? extends ISegregado> masDatos) {
         try {
             this.outputStream.writeObject(datos);
             this.outputStream.writeObject(masDatos);

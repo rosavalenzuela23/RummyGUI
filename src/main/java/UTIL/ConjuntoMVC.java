@@ -4,7 +4,7 @@
  */
 package UTIL;
 
-import DOMINIO.Conjunto;
+import interaces.ConjuntoDTO;
 import java.awt.Color;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import javax.swing.JCheckBox;
  *
  * @author natsu
  */
-public class ConjuntoMVC extends DraggablePanel{
-    
-    private Conjunto conjunto;
+public class ConjuntoMVC extends DraggablePanel {
+
+    private ConjuntoDTO conjunto;
     private List<FichaMVC> fichas;
 
     private JCheckBox checkBox;
@@ -29,7 +29,7 @@ public class ConjuntoMVC extends DraggablePanel{
         checkBox.setSize(20, 20);
         this.add(checkBox);
     }
-    
+
     public boolean isSelected() {
         return this.checkBox.isSelected();
     }
@@ -48,7 +48,7 @@ public class ConjuntoMVC extends DraggablePanel{
         this.fichas = fichas;
         actualizarConjunto();
     }
-    
+
     public void agregarFicha(FichaMVC ficha, PosicionEnum pos) {
         if (pos == PosicionEnum.ADELANTE) {
             fichas.addFirst(ficha);
@@ -56,17 +56,17 @@ public class ConjuntoMVC extends DraggablePanel{
             fichas.addLast(ficha);
         }
     }
-    
+
     public enum PosicionEnum {
         ADELANTE,
         DETRAS
     }
 
-    public Conjunto getConjunto() {
+    public ConjuntoDTO getConjunto() {
         return conjunto;
     }
 
-    public void setConjunto(Conjunto conjunto) {
+    public void setConjunto(ConjuntoDTO conjunto) {
         this.conjunto = conjunto;
     }
 

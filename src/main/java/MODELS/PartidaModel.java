@@ -1,4 +1,3 @@
-
 package MODELS;
 
 import DOMINIO.Conjunto;
@@ -7,54 +6,51 @@ import java.util.List;
 
 import UTIL.ConjuntoMVC;
 import UTIL.ConjuntoMVC.PosicionEnum;
-import UTIL.FichaMVC;
 import WEB.ProxyCliente;
 import exceptions.DominioException;
+import interaces.FichaDTO;
 import java.util.ArrayList;
 
 /**
  *
- * @author 
+ * @author
  */
 public class PartidaModel implements ModeloDatos {
-    
+
     private static PartidaModel instancia;
     private static Partida partida;
     private List<Conjunto> conjuntos;
-    
+
     public static PartidaModel obtenerInstancia() {
         if (PartidaModel.instancia == null) {
             PartidaModel.instancia = new PartidaModel();
         }
         return PartidaModel.instancia;
     }
-    
+
 //    Partida partida;
-   
-    private PartidaModel(){
+    private PartidaModel() {
         //Borrar
-       conjuntos = new ArrayList<>();
+        conjuntos = new ArrayList<>();
     }
-    
-    
-    
-    public void validarFichasExistentesPozo() throws DominioException{
+
+    public void validarFichasExistentesPozo() throws DominioException {
         ProxyCliente pc = ProxyCliente.obtenerInstancia();
         partida.validarFichasExistentesPozo();
     }
 
-    public void agregarConConjunto(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, PosicionEnum posicion) {
+    public void agregarConConjunto(List<FichaDTO> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, PosicionEnum posicion) {
         ProxyCliente pc = ProxyCliente.obtenerInstancia();
         pc.agregarConConjunto(fichasSeleccionadas, conjuntoModificado, posicion);
     }
 
-    public void agregarSinConjunto(List<FichaMVC> fichasSeleccionadas) {
+    public void agregarSinConjunto(List<FichaDTO> fichasSeleccionadas) {
         ProxyCliente pc = ProxyCliente.obtenerInstancia();
         pc.agregarSinConjunto(fichasSeleccionadas);
     }
-    
-    public void realizarMovimientoDividir(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoSeleccionado) {
-        
+
+    public void realizarMovimientoDividir(List<FichaDTO> fichasSeleccionadas, ConjuntoMVC conjuntoSeleccionado) {
+
     }
 
     @Override

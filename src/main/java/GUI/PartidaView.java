@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import CONTROLLERS.PantallaPartidaController;
-import DOMINIO.Ficha;
-import DOMINIO.FichaNumerica;
 import MODELS.ModeloDatos;
 import UTIL.SuscriptorPartida;
+import interaces.FichaDTO;
 
 import java.awt.Component;
 import javax.swing.JFrame;
@@ -59,12 +58,13 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     }
 
     private List<FichaMVC> createRandomFicha(int max) {
-        List<FichaMVC> fichas = new ArrayList();
-        for (byte i = 0; i < max; i++) {
-            Ficha ficha = new FichaNumerica(i);
-            fichas.add(new FichaMVC(ficha));
-        }
-        return fichas;
+//        List<FichaMVC> fichas = new ArrayList();
+//        for (byte i = 0; i < max; i++) {
+//            Ficha ficha = new FichaNumerica(i);
+//            fichas.add(new FichaMVC(ficha));
+//        }
+//        return fichas;
+        return new ArrayList();
     }
 
     /**
@@ -191,15 +191,15 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private List<FichaMVC> verificarFichasSeleccionadas() throws Exception {
-        List<FichaMVC> fichas = new ArrayList<>();
+    private List<FichaDTO> verificarFichasSeleccionadas() throws Exception {
+        List<FichaDTO> fichas = new ArrayList<>();
         for (Component c : this.panelFichas.getComponents()) {
             if (c.getClass() == FichaMVC.class) {
                 FichaMVC ficha = (FichaMVC) c;
                 if (!ficha.isSelected()) {
                     continue;
                 }
-                fichas.add((FichaMVC) c);
+                fichas.add(ficha.getFicha());
             }
         }
         if (fichas.isEmpty()) {
@@ -253,7 +253,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
 
         try {
             PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
-            List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
+            List<FichaDTO> fichasSeleccionadas = verificarFichasSeleccionadas();
             ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
             if (conjuntoSeleccionado != null) {
                 ConjuntoMVC.PosicionEnum posicion = muestraMensajeDelanteOAtras();
@@ -284,10 +284,10 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
             PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
             List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
             ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
-            if(conjuntoSeleccionado != null){
+            if (conjuntoSeleccionado != null) {
                 pc.validarFichasExistentesPozo();
             }
-            
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

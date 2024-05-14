@@ -11,6 +11,8 @@ import SEGREGATES.FichaSegregada;
 import SEGREGATES.ISegregado;
 import UTIL.ConjuntoMVC;
 import UTIL.FichaMVC;
+import arqui.util.Datos;
+import interaces.FichaDTO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,37 +21,39 @@ import java.util.List;
  * @author oscar
  */
 public class ProxyCliente {
+
     private static ProxyCliente instanse;
     private Cliente cliente;
-    
+
     private ProxyCliente() {
         this.cliente = Cliente.obtenerInstancia();
     }
-    
+
     public static ProxyCliente obtenerInstancia() {
         if (ProxyCliente.instanse == null) {
             ProxyCliente.instanse = new ProxyCliente();
         }
         return ProxyCliente.instanse;
     }
-    
+
     private void serializarDatos(ISegregado datos) {
         this.cliente.enviarDatos(datos);
     }
-    
-    private void serializarDatos(List<? extends ISegregado> datos) {
+
+    private void serializarDatos(List datos) {
         this.cliente.enviarDatos(datos);
     }
-    
-    private void serializarDatos(ISegregado datos, List<? extends ISegregado> masDatos) {
+
+    private void serializarDatos(Datos datos, List masDatos) {
         this.cliente.enviarDatos(datos, masDatos);
     }
-    
-    public void agregarSinConjunto(List<FichaMVC> fichasSeleccionadas) {
-        List<FichaSegregada> fichasSegregadas = this.segregarFichasMVC(fichasSeleccionadas);
-        this.serializarDatos(fichasSegregadas);
+
+    public void agregarSinConjunto(List<FichaDTO> fichasSeleccionadas) {
+        Datos d = new Datos();
+        d.setDatos(d);
+        this.serializarDatos(fichasSeleccionadas);
     }
-    
+
     public void agregarConConjunto(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, ConjuntoMVC.PosicionEnum posicion) {
         List<FichaSegregada> fichasSegregadasConjunto = this.segregarFichasMVC(conjuntoModificado.getFichas());
         List<FichaSegregada> fichasSegregadasSeleccionadas = this.segregarFichasMVC(fichasSeleccionadas);
@@ -57,16 +61,7 @@ public class ProxyCliente {
         ConjuntoSegregado conjuntoSegregado = new ConjuntoSegregado(fichasSegregadasConjunto);
         this.serializarDatos(conjuntoSegregado, fichasSegregadasSeleccionadas);
     }
-    
-//    private List<FichaSegregada> juntarFichas(List<FichaSegregada> primera, List<FichaSegregada> segunda, ConjuntoMVC.PosicionEnum posicion) {
-//        if (posicion == ConjuntoMVC.PosicionEnum.ADELANTE) {
-//            primera.addAll(segunda);
-//        } else {
-//            primera.addAll(0, segunda);
-//        }
-//        return primera;
-//    }
-    
+
     private List<FichaSegregada> segregarFichasMVC(List<FichaMVC> fichasMVC) {
         List<FichaSegregada> fichasSegregadas = new ArrayList<>();
         for (FichaMVC fichaMVC : fichasMVC) {
@@ -82,8 +77,8 @@ public class ProxyCliente {
         }
         return fichasSegregadas;
     }
-    
+
     public void notificar() {
-        
+
     }
 }

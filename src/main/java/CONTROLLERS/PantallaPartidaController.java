@@ -41,23 +41,20 @@ public class PantallaPartidaController {
         pv.setVisible(true);
     }
 
-    public void agregarConConjunto(List<FichaDTO> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, ConjuntoMVC.PosicionEnum posicion) {
-        pm.agregarConConjunto(fichasSeleccionadas, conjuntoModificado, posicion);
+    public void agregarConConjunto() {
+        
     }
 
     public void validarFichasExistentesPozo() throws DominioException {
-        pm.validarFichasExistentesPozo();
+        
     }
 
     public void realizarMovimientoDividir() {
 
     }
 
-    public void agregarSinConjunto(List<FichaDTO> fichasSeleccionadas) {
-        pm.agregarSinConjunto(fichasSeleccionadas);
+    public void agregarSinConjunto() {
+       
     }
 
-    public void realizarMovimientoDividir(List<FichaDTO> fichasSeleccionadas, ConjuntoMVC conjuntoSeleccionado) {
-        pm.realizarMovimientoDividir(fichasSeleccionadas, conjuntoSeleccionado);
-    }
 }

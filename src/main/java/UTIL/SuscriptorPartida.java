@@ -4,7 +4,6 @@
  */
 package UTIL;
 
-import MODELS.ModeloDatos;
 
 /**
  *
@@ -12,6 +11,6 @@ import MODELS.ModeloDatos;
  */
 public interface SuscriptorPartida {
     
-    public void notificar(ModeloDatos modelo);
+    public void notificar();
 
 }

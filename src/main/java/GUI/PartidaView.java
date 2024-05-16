@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import CONTROLLERS.PantallaPartidaController;
-import MODELS.ModeloDatos;
 import UTIL.SuscriptorPartida;
 import interaces.FichaDTO;
 
@@ -200,6 +199,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
                     continue;
                 }
                 fichas.add(ficha.getFicha());
+                
             }
         }
         if (fichas.isEmpty()) {
@@ -251,46 +251,14 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
 
     private void precionaBotonAgregarFicha(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonAgregarFicha
 
-        try {
-            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
-            List<FichaDTO> fichasSeleccionadas = verificarFichasSeleccionadas();
-            ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
-            if (conjuntoSeleccionado != null) {
-                ConjuntoMVC.PosicionEnum posicion = muestraMensajeDelanteOAtras();
-                pc.agregarConConjunto(fichasSeleccionadas, conjuntoSeleccionado, posicion);
-                return;
-            }
-            pc.agregarSinConjunto(fichasSeleccionadas);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }//GEN-LAST:event_precionaBotonAgregarFicha
 
     private void precionaBotonSepararConjunto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonSepararConjunto
-        try {
-            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
-            List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
-            ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
-            if (conjuntoSeleccionado != null && verificarPeriodoSeleccionado()) {
-                pc.realizarMovimientoDividir(fichasSeleccionadas, conjuntoSeleccionado);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        
     }//GEN-LAST:event_precionaBotonSepararConjunto
 
     private void botonPozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPozoActionPerformed
-        try {
-            PantallaPartidaController pc = PantallaPartidaController.obtenerInstancia();
-            List<FichaMVC> fichasSeleccionadas = verificarFichasSeleccionadas();
-            ConjuntoMVC conjuntoSeleccionado = verificarConjuntoSeleccionado();
-            if (conjuntoSeleccionado != null) {
-                pc.validarFichasExistentesPozo();
-            }
-
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+      
     }//GEN-LAST:event_botonPozoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -308,8 +276,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void notificar(ModeloDatos modelo) {
-//        this.wait();
-//        List<>
+    public void notificar() {
+
     }
 }

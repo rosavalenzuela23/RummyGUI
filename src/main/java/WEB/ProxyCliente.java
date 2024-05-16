@@ -41,7 +41,8 @@ public class ProxyCliente {
     }
 
     private void serializarDatos(List datos) {
-        this.cliente.enviarDatos(datos);
+        this.cliente.enviarDatos((ISegregado) datos);
+//        this.cliente.enviarDatos(datos);
     }
 
     private void serializarDatos(Datos datos, List masDatos) {
@@ -54,12 +55,12 @@ public class ProxyCliente {
         this.serializarDatos(fichasSeleccionadas);
     }
 
-    public void agregarConConjunto(List<FichaMVC> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, ConjuntoMVC.PosicionEnum posicion) {
+    public void agregarConConjunto(List<FichaDTO> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, ConjuntoMVC.PosicionEnum posicion) {
         List<FichaSegregada> fichasSegregadasConjunto = this.segregarFichasMVC(conjuntoModificado.getFichas());
-        List<FichaSegregada> fichasSegregadasSeleccionadas = this.segregarFichasMVC(fichasSeleccionadas);
+//        List<FichaSegregada> fichasSegregadasSeleccionadas = this.segregarFichasMVC(fichasSeleccionadas);
 //        ConjuntoSegregado conjuntoSegregado = new ConjuntoSegregado(this.juntarFichas(fichasSegregadasConjunto, fichasSegregadasSeleccionadas, posicion));
         ConjuntoSegregado conjuntoSegregado = new ConjuntoSegregado(fichasSegregadasConjunto);
-        this.serializarDatos(conjuntoSegregado, fichasSegregadasSeleccionadas);
+//        this.serializarDatos(conjuntoSegregado, fichasSegregadasSeleccionadas);
     }
 
     private List<FichaSegregada> segregarFichasMVC(List<FichaMVC> fichasMVC) {

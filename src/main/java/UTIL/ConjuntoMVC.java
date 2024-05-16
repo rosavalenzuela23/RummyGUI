@@ -51,9 +51,9 @@ public class ConjuntoMVC extends DraggablePanel {
 
     public void agregarFicha(FichaMVC ficha, PosicionEnum pos) {
         if (pos == PosicionEnum.ADELANTE) {
-            fichas.addFirst(ficha);
+//            fichas.addFirst(ficha);
         } else if (pos == PosicionEnum.DETRAS) {
-            fichas.addLast(ficha);
+//            fichas.addLast(ficha);
         }
     }
 

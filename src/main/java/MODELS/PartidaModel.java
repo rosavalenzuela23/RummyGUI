@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author
  */
-public class PartidaModel implements ModeloDatos {
+public class PartidaModel{
 
     private static PartidaModel instancia;
     private static Partida partida;
@@ -34,27 +34,5 @@ public class PartidaModel implements ModeloDatos {
         conjuntos = new ArrayList<>();
     }
 
-    public void validarFichasExistentesPozo() throws DominioException {
-        ProxyCliente pc = ProxyCliente.obtenerInstancia();
-        partida.validarFichasExistentesPozo();
-    }
-
-    public void agregarConConjunto(List<FichaDTO> fichasSeleccionadas, ConjuntoMVC conjuntoModificado, PosicionEnum posicion) {
-        ProxyCliente pc = ProxyCliente.obtenerInstancia();
-        pc.agregarConConjunto(fichasSeleccionadas, conjuntoModificado, posicion);
-    }
-
-    public void agregarSinConjunto(List<FichaDTO> fichasSeleccionadas) {
-        ProxyCliente pc = ProxyCliente.obtenerInstancia();
-        pc.agregarSinConjunto(fichasSeleccionadas);
-    }
-
-    public void realizarMovimientoDividir(List<FichaDTO> fichasSeleccionadas, ConjuntoMVC conjuntoSeleccionado) {
-
-    }
-
-    @Override
-    public List<Conjunto> obtenerConjuntos() {
-        return this.conjuntos;
-    }
+  
 }

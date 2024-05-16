@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author oscar-minjarez
+ * @author 
  */
 public class Cliente {
 

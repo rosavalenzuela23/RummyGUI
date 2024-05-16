@@ -7,6 +7,7 @@ import java.util.List;
 import UTIL.ConjuntoMVC;
 import UTIL.ConjuntoMVC.PosicionEnum;
 import WEB.ProxyCliente;
+import arqui.util.Datos;
 import exceptions.DominioException;
 import interaces.FichaDTO;
 import java.util.ArrayList;
@@ -34,5 +35,10 @@ public class PartidaModel{
         conjuntos = new ArrayList<>();
     }
 
+    public void terminarTurno(){
+        Datos datos = new Datos(null, "terminar turno");
+        
+        ProxyCliente.obtenerInstancia().terminarTurno(datos);
+    }
   
 }

@@ -79,6 +79,13 @@ public class ProxyCliente {
         return fichasSegregadas;
     }
 
+    /**
+     * Método terminar turno que envía los datos al servidor
+     */
+    public void terminarTurno(Datos datos){
+        Cliente.obtenerInstancia().enviarDatos(datos);
+    }
+    
     public void notificar() {
 
     }

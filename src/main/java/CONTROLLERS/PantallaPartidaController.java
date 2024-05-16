@@ -56,5 +56,9 @@ public class PantallaPartidaController {
     public void agregarSinConjunto() {
        
     }
+    
+    public void terminarTurno(){
+        pm.terminarTurno();
+    }
 
 }

@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 public class PartidaView extends JFrame implements SuscriptorPartida {
 
     private static PartidaView instancia;
+    List<Component> componentesCreados;
 
     public static PartidaView obtenerInstancia() {
         if (PartidaView.instancia == null) {
@@ -44,6 +45,8 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         initComponents();
 
         this.setLocationRelativeTo(null);
+
+        componentesCreados = new ArrayList();
 
         crearDatos();
 
@@ -374,9 +377,22 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
 
         List<Conjunto> conjuntos = partida.getTablero().getConjuntos();
 
+        for (Component c : this.componentesCreados) {
+
+            if (c instanceof ConjuntoMVC) {
+                this.tableroPanel.remove(c);
+            }
+
+            if (c instanceof FichaMVC) {
+                this.panelFichas.remove(c);
+            }
+
+        }
+
 //        poner los conjuntos en el tablero
         for (Conjunto c : conjuntos) {
             ConjuntoMVC mvc = new ConjuntoMVC();
+
             mvc.setConjunto(c);
 
             List<FichaMVC> fichas = new ArrayList();
@@ -387,14 +403,15 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
             }
             mvc.setFichas(fichas);
 
+            componentesCreados.add(mvc);
             this.tableroPanel.add(mvc);
         }
 
         for (Ficha f : partida.jugadores.get(0).getMazo().getFichas()) {
             FichaNumerica fnum = (FichaNumerica) f;
             FichaMVC mvcficha = new FichaMVC(fnum);
+            componentesCreados.add(mvcficha);
             this.panelFichas.add(mvcficha);
-
         }
 
     }

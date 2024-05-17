@@ -4,16 +4,19 @@
  */
 package WEB;
 
+import DOMINIO.PartidaDTOClazz;
+import UTIL.SubscriptorBlackboard;
 import arqui.util.Datos;
 
 /**
  *
  * @author oscar
  */
-public class ProxyCliente {
+public class ProxyCliente implements SubscriptorBlackboard {
 
     private static ProxyCliente instancia;
     private Cliente cliente;
+    private SubscriptorBlackboard sub;
 
     private ProxyCliente() {
         this.cliente = Cliente.obtenerInstancia();
@@ -34,12 +37,17 @@ public class ProxyCliente {
     public void terminarTurno(Datos<?> datos) {
         Cliente.obtenerInstancia().enviarDatos(datos);
     }
-    
-    public void agregarFichaAMazo(Datos<?> datos){
+
+    public void agregarFichaAMazo(Datos<?> datos) {
         this.cliente.enviarDatos(datos);
     }
 
-    public void notificar() {
+    public void setSub(SubscriptorBlackboard sub) {
+        this.sub = sub;
+    }
 
+    @Override
+    public void notificar(PartidaDTOClazz obj) {
+        sub.notificar(obj);
     }
 }

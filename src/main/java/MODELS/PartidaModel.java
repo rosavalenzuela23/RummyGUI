@@ -11,6 +11,7 @@ import DOMINIO.Partida;
 import DOMINIO.PartidaDTOClazz;
 import DOMINIO.Pila;
 import DOMINIO.Tablero;
+import UTIL.SubscriptorBlackboard;
 import UTIL.SuscriptorPartida;
 import WEB.ProxyCliente;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  *
  * @author
  */
-public class PartidaModel {
+public class PartidaModel implements SubscriptorBlackboard {
 
     private static PartidaModel instancia;
     private static Partida partida;
@@ -35,6 +36,7 @@ public class PartidaModel {
         if (PartidaModel.instancia == null) {
             PartidaModel.instancia = new PartidaModel();
         }
+
         return PartidaModel.instancia;
     }
 
@@ -42,6 +44,7 @@ public class PartidaModel {
     private PartidaModel() {
         //Borrar
         conjuntos = new ArrayList<>();
+        ProxyCliente.obtenerInstancia().setSub(this);
     }
 
     public void agregarSinConjunto(List<FichaDTO> fichas) {
@@ -137,6 +140,11 @@ public class PartidaModel {
     public void mostrarPantall() {
 
         sub.mostrarPantalla();
+    }
+
+    @Override
+    public void notificar(PartidaDTOClazz obj) {
+        sub.notificar(obj);
     }
 
 }

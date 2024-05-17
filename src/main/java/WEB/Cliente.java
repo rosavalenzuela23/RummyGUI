@@ -49,10 +49,12 @@ public class Cliente extends Thread {
                 Object c = this.inputStream.readObject();
 
                 PartidaDTOClazz obj = (PartidaDTOClazz) c;
-                System.out.println(obj.getJugadores().get(0).getMazo().getFichas().get(0).toString());
+
+                ProxyCliente.obtenerInstancia().notificar(obj);
 
             } catch (Exception e) {
-
+                System.out.println(e.getMessage());
+                e.printStackTrace();
                 System.out.println("Error cliente socket");
 
             }

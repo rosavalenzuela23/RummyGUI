@@ -23,4 +23,11 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.arqui.rummygui.RummyGUI</exec.mainClass>
     </properties>
+    <build>
+        <resources>
+            <resource>
+                <directory> src/main/java/com/arqui/rummygui/resources </directory>
+            </resource>
+        </resources>
+    </build>
 </project>

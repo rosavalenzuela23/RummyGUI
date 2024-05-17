@@ -38,7 +38,10 @@ public class PantallaPartidaController {
     }
 
     public void mostrarPantallaPartida() {
-        pv.setVisible(true);
+
+        pm.setSub(pv);
+
+        this.pm.mostrarPantalla();
     }
 
     public void validarFichasExistentesPozo() throws DominioException {

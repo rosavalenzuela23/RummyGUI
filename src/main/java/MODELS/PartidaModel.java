@@ -2,9 +2,10 @@ package MODELS;
 
 import DOMINIO.Conjunto;
 import DOMINIO.Partida;
+import UTIL.SuscriptorPartida;
+import WEB.ProxyCliente;
 import java.util.List;
 
-import WEB.ProxyCliente;
 import arqui.util.Datos;
 import interaces.ConjuntoDTO;
 import interaces.FichaDTO;
@@ -19,6 +20,7 @@ public class PartidaModel {
     private static PartidaModel instancia;
     private static Partida partida;
     private List<Conjunto> conjuntos;
+    private SuscriptorPartida sub;
 
     public static PartidaModel obtenerInstancia() {
         if (PartidaModel.instancia == null) {
@@ -49,6 +51,14 @@ public class PartidaModel {
         Datos datos = new Datos(null, "terminar turno");
 
         ProxyCliente.obtenerInstancia().terminarTurno(datos);
+    }
+
+    public void setSub(SuscriptorPartida sub) {
+        this.sub = sub;
+    }
+
+    public void mostrarPantalla() {
+        this.sub.mostrarPantalla();
     }
 
 }

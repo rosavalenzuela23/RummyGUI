@@ -4,24 +4,60 @@
  */
 package WEB;
 
-import SEGREGATES.ISegregado;
+import DOMINIO.PartidaDTOClazz;
+import UTIL.Propiedades;
 import arqui.util.Datos;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
 
 /**
  *
- * @author 
+ * @author
  */
-public class Cliente {
+public class Cliente extends Thread {
 
     private static Cliente instance;
     private Socket socket;
     private ObjectOutputStream outputStream;
+    private ObjectInputStream inputStream;
 
     private Cliente() {
+
+        String ip = (String) Propiedades.obtenerPropiedad("IP_SERVIDOR");
+        int port = Integer.parseInt((String) Propiedades.obtenerPropiedad("PUERTO_SERVIDOR"));
+
+        try {
+            this.socket = new Socket(ip, port);
+
+            this.setSocket(socket);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void run() {
+
+        while (true) {
+            System.out.println("Escuchando cliente");
+
+            try {
+                Object c = this.inputStream.readObject();
+
+                PartidaDTOClazz obj = (PartidaDTOClazz) c;
+                System.out.println(obj.getJugadores().get(0).getMazo().getFichas().get(0).toString());
+
+            } catch (Exception e) {
+
+                System.out.println("Error cliente socket");
+
+            }
+
+        }
 
     }
 
@@ -29,6 +65,7 @@ public class Cliente {
         this.socket = socket;
         try {
             this.outputStream = new ObjectOutputStream(this.socket.getOutputStream());
+            this.inputStream = new ObjectInputStream(this.socket.getInputStream());
         } catch (IOException e) {
             System.out.println("Error al obtener el outputStream: " + e.getMessage());
         }
@@ -41,7 +78,7 @@ public class Cliente {
         return Cliente.instance;
     }
 
-    public void enviarDatos(ISegregado datos) {
+    public void enviarDatos(Datos<?> datos) {
         try {
             this.outputStream.writeObject(datos);
             this.outputStream.flush();
@@ -50,22 +87,4 @@ public class Cliente {
         }
     }
 
-    public void enviarDatos(Datos datos) {
-        try {
-            this.outputStream.writeObject(datos);
-            this.outputStream.flush();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void enviarDatos(Datos datos, List<? extends ISegregado> masDatos) {
-        try {
-            this.outputStream.writeObject(datos);
-            this.outputStream.writeObject(masDatos);
-            this.outputStream.flush();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 }

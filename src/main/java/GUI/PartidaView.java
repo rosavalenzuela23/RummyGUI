@@ -364,4 +364,9 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     public void notificar(PartidaDTO partida) {
 
     }
+
+    @Override
+    public void mostrarPantalla() {
+        PartidaView.obtenerInstancia().setVisible(true);
+    }
 }

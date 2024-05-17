@@ -14,4 +14,6 @@ public interface SuscriptorPartida {
 
     public void notificar(PartidaDTO partida);
 
+    public void mostrarPantalla();
+
 }

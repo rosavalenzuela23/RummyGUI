@@ -39,11 +39,13 @@ public class PantallaPartidaController {
 
     public void mostrarPantallaPartida() {
 
-        pm.setSub(pv);
-
-        this.pm.mostrarPantalla();
+        //this.pm.mostrarPantalla();
     }
 
+    public void agregarFichaAMazo(){
+        pm.agregarFichaAMazo();
+    }
+    
     public void validarFichasExistentesPozo() throws DominioException {
 
     }
@@ -52,6 +54,7 @@ public class PantallaPartidaController {
         PartidaModel
                 .obtenerInstancia()
                 .realizarMovimientoDividir(conjunto, periodo);
+        
     }
 
     public void agregarSinConjunto(List<FichaDTO> fichas) {

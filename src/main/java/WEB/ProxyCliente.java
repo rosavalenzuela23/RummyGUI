@@ -34,5 +34,12 @@ public class ProxyCliente {
     public void terminarTurno(Datos<?> datos) {
         cliente.enviarDatos(datos);
     }
+    
+    public void agregarFichaAMazo(Datos<?> datos){
+        this.cliente.enviarDatos(datos);
+    }
 
+    public void notificar() {
+
+    }
 }

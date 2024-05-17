@@ -52,13 +52,10 @@ public class PartidaModel {
 
         ProxyCliente.obtenerInstancia().terminarTurno(datos);
     }
-
-    public void setSub(SuscriptorPartida sub) {
-        this.sub = sub;
+    
+    public void agregarFichaAMazo(){
+        Datos datos = new Datos(null, "agregar ficha a mazo");
+        ProxyCliente.obtenerInstancia().agregarFichaAMazo(datos);
     }
-
-    public void mostrarPantalla() {
-        this.sub.mostrarPantalla();
-    }
-
+  
 }

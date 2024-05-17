@@ -338,7 +338,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     }//GEN-LAST:event_precionaBotonSepararConjunto
 
     private void botonPozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPozoActionPerformed
-
+        PantallaPartidaController.obtenerInstancia().agregarFichaAMazo();
     }//GEN-LAST:event_botonPozoActionPerformed
 
     private void terminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terminarTurnoActionPerformed

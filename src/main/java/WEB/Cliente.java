@@ -45,13 +45,14 @@ public class Cliente extends Thread {
         while (true) {
             System.out.println("Escuchando cliente");
 
+            Object c;
+            PartidaDTOClazz obj;
             try {
-                Object c = this.inputStream.readObject();
+                c = this.inputStream.readObject();
 
-                PartidaDTOClazz obj = (PartidaDTOClazz) c;
+                obj = (PartidaDTOClazz) c;
 
                 ProxyCliente.obtenerInstancia().notificar(obj);
-
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
@@ -82,7 +83,7 @@ public class Cliente extends Thread {
 
     public void enviarDatos(Datos<?> datos) {
         try {
-            this.outputStream.writeObject(datos);
+            this.outputStream.writeUnshared(datos);
             this.outputStream.flush();
         } catch (IOException e) {
             System.out.println(e.getMessage());

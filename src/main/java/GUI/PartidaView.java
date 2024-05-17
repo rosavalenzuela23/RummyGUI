@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import CONTROLLERS.PantallaPartidaController;
+import DOMINIO.Conjunto;
+import DOMINIO.Ficha;
+import DOMINIO.FichaNumerica;
+import DOMINIO.PartidaDTOClazz;
 import UTIL.SuscriptorPartida;
 import interaces.ConjuntoDTO;
 import interaces.FichaDTO;
-import interaces.PartidaDTO;
 
 import java.awt.Component;
 import javax.swing.JFrame;
@@ -28,11 +31,9 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     private static PartidaView instancia;
 
     public static PartidaView obtenerInstancia() {
-
         if (PartidaView.instancia == null) {
             PartidaView.instancia = new PartidaView();
         }
-
         return PartidaView.instancia;
     }
 
@@ -44,28 +45,12 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
 
         this.setLocationRelativeTo(null);
 
-        List<FichaMVC> fichas1 = createRandomFicha(100);
-        List<FichaMVC> fichas2 = createRandomFicha(5);
-
-        fichas1.forEach((ficha) -> {
-            this.panelFichas.add(ficha);
-        });
-
-        //Agregar conjuntos al tablero
-        this.tableroPanel.add(
-                new ConjuntoMVC(fichas2)
-        );
+        crearDatos();
 
     }
 
-    private List<FichaMVC> createRandomFicha(int max) {
-//        List<FichaMVC> fichas = new ArrayList();
-//        for (byte i = 0; i < max; i++) {
-//            Ficha ficha = new FichaNumerica(i);
-//            fichas.add(new FichaMVC(ficha));
-//        }
-//        return fichas;
-        return new ArrayList();
+    private void crearDatos() {
+
     }
 
     /**
@@ -89,6 +74,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         terminarTurno = new javax.swing.JButton();
+        btnDatos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 608));
@@ -99,7 +85,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         tableroPanel.setLayout(tableroPanelLayout);
         tableroPanelLayout.setHorizontalGroup(
             tableroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 867, Short.MAX_VALUE)
         );
         tableroPanelLayout.setVerticalGroup(
             tableroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,20 +181,36 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
                 .addContainerGap())
         );
 
+        btnDatos.setText("Crear datos");
+        btnDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tableroPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(opcionesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(opcionesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDatos))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tableroPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(opcionesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(opcionesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(btnDatos)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -345,10 +347,17 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         PantallaPartidaController.obtenerInstancia().terminarTurno();
     }//GEN-LAST:event_terminarTurnoActionPerformed
 
+    private void btnDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatosActionPerformed
+
+        PantallaPartidaController.obtenerInstancia().crearDatos();
+
+    }//GEN-LAST:event_btnDatosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonPozo;
     private javax.swing.JButton botonSeparar;
+    private javax.swing.JButton btnDatos;
     private javax.swing.JTextField campoTextoPeriodoFinal;
     private javax.swing.JTextField campoTextoPeriodoInicio;
     private javax.swing.JLabel jLabel1;
@@ -361,7 +370,32 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void notificar(PartidaDTO partida) {
+    public void notificar(PartidaDTOClazz partida) {
+
+        List<Conjunto> conjuntos = partida.getTablero().getConjuntos();
+
+//        poner los conjuntos en el tablero
+        for (Conjunto c : conjuntos) {
+            ConjuntoMVC mvc = new ConjuntoMVC();
+            mvc.setConjunto(c);
+
+            List<FichaMVC> fichas = new ArrayList();
+            for (Ficha f : c.getFichas()) {
+                FichaNumerica fnum = (FichaNumerica) f;
+                FichaMVC mvcficha = new FichaMVC(fnum);
+                fichas.add(mvcficha);
+            }
+            mvc.setFichas(fichas);
+
+            this.tableroPanel.add(mvc);
+        }
+
+        for (Ficha f : partida.jugadores.get(0).getMazo().getFichas()) {
+            FichaNumerica fnum = (FichaNumerica) f;
+            FichaMVC mvcficha = new FichaMVC(fnum);
+            this.panelFichas.add(mvcficha);
+
+        }
 
     }
 

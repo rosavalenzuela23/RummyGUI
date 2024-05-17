@@ -31,6 +31,6 @@ public class RummyGUI {
 //        } catch (IOException e) {
 //            System.out.println("Error al conectar al servidor o enviar datos: " + e.getMessage());
 //        }
-//        PantallaPartidaController.obtenerInstancia().mostrarPantallaPartida();
+        PantallaPartidaController.obtenerInstancia().mostrarPantallaPartida();
     }
 }

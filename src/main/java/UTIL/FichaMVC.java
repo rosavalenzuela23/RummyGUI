@@ -12,19 +12,19 @@ import javax.swing.JToggleButton;
  * @author natsu
  */
 public class FichaMVC extends JToggleButton {
-
+    
     private FichaDTO ficha;
-
+    
     public FichaMVC() {
         super();
     }
-
+    
     public FichaMVC(FichaDTO ficha) {
         this();
-        // this.setText(Integer.toString(number));
+        this.setText(String.valueOf(ficha.getNumero()));
         this.ficha = ficha;
     }
-
+    
     public FichaDTO getFicha() {
         return this.ficha;
     }

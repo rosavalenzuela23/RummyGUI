@@ -4,7 +4,7 @@
  */
 package UTIL;
 
-import interaces.PartidaDTO;
+import DOMINIO.PartidaDTOClazz;
 
 /**
  *
@@ -12,7 +12,7 @@ import interaces.PartidaDTO;
  */
 public interface SuscriptorPartida {
 
-    public void notificar(PartidaDTO partida);
+    public void notificar(PartidaDTOClazz partida);
 
     public void mostrarPantalla();
 

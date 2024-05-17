@@ -28,11 +28,11 @@ public class ProxyCliente {
     }
 
     public void agregarSinConjunto(Datos<?> datos) {
-        cliente.enviarDatos(datos);
+        Cliente.obtenerInstancia().enviarDatos(datos);
     }
 
     public void terminarTurno(Datos<?> datos) {
-        cliente.enviarDatos(datos);
+        Cliente.obtenerInstancia().enviarDatos(datos);
     }
     
     public void agregarFichaAMazo(Datos<?> datos){

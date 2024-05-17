@@ -76,5 +76,6 @@ public class ConjuntoMVC extends DraggablePanel {
 
     public void setFichas(List<FichaMVC> fichas) {
         this.fichas = fichas;
+        actualizarConjunto();
     }
 }

@@ -4,13 +4,14 @@
  */
 package UTIL;
 
+import interaces.PartidaDTO;
 
 /**
  *
  * @author rosafresita
  */
 public interface SuscriptorPartida {
-    
-    public void notificar();
+
+    public void notificar(PartidaDTO partida);
 
 }

@@ -8,8 +8,8 @@ import java.util.List;
 
 import GUI.PartidaView;
 import MODELS.PartidaModel;
-import UTIL.ConjuntoMVC;
 import exceptions.DominioException;
+import interaces.ConjuntoDTO;
 import interaces.FichaDTO;
 
 /**
@@ -41,23 +41,33 @@ public class PantallaPartidaController {
         pv.setVisible(true);
     }
 
-    public void agregarConConjunto() {
-        
-    }
-
     public void validarFichasExistentesPozo() throws DominioException {
-        
-    }
-
-    public void realizarMovimientoDividir() {
 
     }
 
-    public void agregarSinConjunto() {
-       
+    public void realizarMovimientoDividir(ConjuntoDTO conjunto, int[] periodo) {
+        PartidaModel
+                .obtenerInstancia()
+                .realizarMovimientoDividir(conjunto, periodo);
     }
-    
-    public void terminarTurno(){
+
+    public void agregarSinConjunto(List<FichaDTO> fichas) {
+        PartidaModel
+                .obtenerInstancia()
+                .agregarSinConjunto(fichas);
+
+    }
+
+    public void agregarConConjunto(
+            List<FichaDTO> fichas,
+            ConjuntoDTO conjunto,
+            boolean delante) {
+        PartidaModel
+                .obtenerInstancia()
+                .agregarConConjunto(fichas, conjunto, delante);
+    }
+
+    public void terminarTurno() {
         pm.terminarTurno();
     }
 

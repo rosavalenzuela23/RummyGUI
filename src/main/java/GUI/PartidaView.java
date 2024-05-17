@@ -11,7 +11,9 @@ import java.util.List;
 
 import CONTROLLERS.PantallaPartidaController;
 import UTIL.SuscriptorPartida;
+import interaces.ConjuntoDTO;
 import interaces.FichaDTO;
+import interaces.PartidaDTO;
 
 import java.awt.Component;
 import javax.swing.JFrame;
@@ -82,8 +84,8 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         botonPozo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelFichas = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        campoTextoPeriodoInicio = new javax.swing.JTextField();
+        campoTextoPeriodoFinal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         terminarTurno = new javax.swing.JButton();
@@ -149,8 +151,8 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
                 .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
                         .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
+                            .addComponent(campoTextoPeriodoFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(campoTextoPeriodoInicio))
                         .addGap(28, 28, 28))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opcionesPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -178,7 +180,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
                                     .addComponent(botonAgregar)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoTextoPeriodoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addComponent(jLabel2))
                             .addGroup(opcionesPanelLayout.createSequentialGroup()
@@ -189,7 +191,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
                         .addGap(6, 6, 6)
                         .addGroup(opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(terminarTurno)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(campoTextoPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -212,6 +214,17 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mostrarMensajeError(String mensaje) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                mensaje,
+                "ERROR!",
+                JOptionPane.ERROR_MESSAGE
+        );
+
+    }
+
     private List<FichaDTO> verificarFichasSeleccionadas() throws Exception {
         List<FichaDTO> fichas = new ArrayList<>();
         for (Component c : this.panelFichas.getComponents()) {
@@ -221,7 +234,6 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
                     continue;
                 }
                 fichas.add(ficha.getFicha());
-                
             }
         }
         if (fichas.isEmpty()) {
@@ -230,18 +242,29 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
         return fichas;
     }
 
-    private boolean verificarPeriodoSeleccionado() {
-        return true;
+    private int[] obtenerPerido() throws Exception {
+
+        if (this.campoTextoPeriodoInicio.getText().equalsIgnoreCase("")
+                || this.campoTextoPeriodoFinal.getText().equalsIgnoreCase("")) {
+            throw new Exception("Debe de ingresar un periodo antes de dividir");
+        }
+
+        int periodo[] = {
+            Integer.parseInt(this.campoTextoPeriodoInicio.getText()),
+            Integer.parseInt(this.campoTextoPeriodoFinal.getText())
+        };
+
+        return periodo;
     }
 
-    private ConjuntoMVC verificarConjuntoSeleccionado() {
+    private ConjuntoDTO verificarConjuntoSeleccionado() {
         for (Component c : this.getComponents()) {
             if (c.getClass() == ConjuntoMVC.class) {
                 ConjuntoMVC conjunto = (ConjuntoMVC) c;
                 if (!conjunto.isSelected()) {
                     continue;
                 }
-                return conjunto;
+                return conjunto.getConjunto();
             }
         }
         return null;
@@ -251,7 +274,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
      * Método que muestra una alerta para que el jugador elija si quiere
      * modificar el conjunto adelante o atras
      */
-    private ConjuntoMVC.PosicionEnum muestraMensajeDelanteOAtras() {
+    private boolean muestraMensajeDelanteOAtras() throws Exception {
         String[] opciones = {"Adelante", "Atrás"};
         int seleccion = JOptionPane.showOptionDialog(
                 this,
@@ -263,24 +286,59 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
                 opciones,
                 opciones[0]);
         if (seleccion == 0) {
-            return ConjuntoMVC.PosicionEnum.ADELANTE;
+            return true;
         } else if (seleccion == 1) {
-            return ConjuntoMVC.PosicionEnum.DETRAS;
+            return false;
         } else {
-            return null;
+            throw new Exception("Necesitas seleccionar algún lado");
         }
     }
 
     private void precionaBotonAgregarFicha(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonAgregarFicha
 
+        try {
+            List<FichaDTO> fichas = verificarFichasSeleccionadas();
+            ConjuntoDTO conjunto = verificarConjuntoSeleccionado();
+
+            if (conjunto == null) {
+
+                PantallaPartidaController
+                        .obtenerInstancia()
+                        .agregarSinConjunto(fichas);
+                return;
+            }
+
+            boolean delante = this.muestraMensajeDelanteOAtras();
+
+            //Continua el agregar con conjunto seleccionado
+            PantallaPartidaController
+                    .obtenerInstancia()
+                    .agregarConConjunto(fichas, conjunto, delante);
+        } catch (Exception e) {
+            this.mostrarMensajeError(e.getMessage());
+        }
+
     }//GEN-LAST:event_precionaBotonAgregarFicha
 
     private void precionaBotonSepararConjunto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precionaBotonSepararConjunto
-        
+
+        try {
+
+            int[] periodo = obtenerPerido();
+            ConjuntoDTO conjunto = this.verificarConjuntoSeleccionado();
+
+            PantallaPartidaController
+                    .obtenerInstancia()
+                    .realizarMovimientoDividir(conjunto, periodo);
+
+        } catch (Exception e) {
+            this.mostrarMensajeError(e.getMessage());
+        }
+
     }//GEN-LAST:event_precionaBotonSepararConjunto
 
     private void botonPozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPozoActionPerformed
-      
+
     }//GEN-LAST:event_botonPozoActionPerformed
 
     private void terminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terminarTurnoActionPerformed
@@ -291,11 +349,11 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonPozo;
     private javax.swing.JButton botonSeparar;
+    private javax.swing.JTextField campoTextoPeriodoFinal;
+    private javax.swing.JTextField campoTextoPeriodoInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel opcionesPanel;
     private javax.swing.JPanel panelFichas;
     private javax.swing.JPanel tableroPanel;
@@ -303,7 +361,7 @@ public class PartidaView extends JFrame implements SuscriptorPartida {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void notificar() {
+    public void notificar(PartidaDTO partida) {
 
     }
 }
